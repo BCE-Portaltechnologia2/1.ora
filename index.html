@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=1024, user-scalable=no">
+
+		<title>Bemutatkozás</title>
+
+		<!-- Required stylesheet -->
+		<link rel="stylesheet" href="core/deck.core.css">
+
+		<!-- Extension CSS files go here. Remove or add as needed. -->
+		<link rel="stylesheet" href="extensions/menu/deck.menu.css">
+		<link rel="stylesheet" href="extensions/navigation/deck.navigation.css">
+		<link rel="stylesheet" href="extensions/status/deck.status.css">
+		<link rel="stylesheet" href="extensions/hash/deck.hash.css">
+		<link rel="stylesheet" href="extensions/scale/deck.scale.css">
+
+		<!-- Style theme. More available in /themes/style/ or create your own. -->
+		<link rel="stylesheet" href="themes/style/web-2.0.css">
+
+		<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+		<link rel="stylesheet" href="themes/transition/horizontal-slide.css">
+
+		<!-- Required Modernizr file -->
+		<script src="modernizr.custom.js"></script>
+
+		<!-- jQuery 1.8.0 -->
+		<script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+
+		<!-- Modernizr -->
+		<script src="http://modernizr.com/downloads/modernizr.js"></script>
+		
+		<!-- FavIcon -->
+		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+
+		<!-- Custom -->
+		<script>
+			function executeScript(containerID) {
+				eval($("#"+containerID).html().replace("&lt;", "<").replace("&gt;", ">"));
+			}
+
+			// Cookie
+			function setCookie(c_name, value, exdays) {
+				var exdate = new Date();
+				exdate.setDate(exdate.getDate() + exdays);
+				var c_value=escape(value) + ((exdays == null) ? "" : "; expires="+exdate.toUTCString());
+				document.cookie = c_name + "=" + c_value;
+			}
+
+			function getCookie(c_name) {
+				var i,x,y,ARRcookies=document.cookie.split(";");
+				for (i=0;i<ARRcookies.length;i++) {
+					x = ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+					y = ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+					x = x.replace(/^\s+|\s+$/g,"");
+					if (x == c_name) {
+						return unescape(y);
+					}
+				}
+			}
+
+			function modernizrCheck() {
+				if (Modernizr.websockets) {
+					console.log('Web Socket support');
+				} else {
+					console.log('no Web Socket support');
+				}
+			}
+		</script>
+	</head>
+	<body class="deck-container">
+		<section class="slide" id="start">
+			<img src="images/corvinus_egyetem_logo.gif">
+			<h2 align="center">Portáltechnológia MSc</h2>
+			<h2 align="center">1. HTML, JS alapok</h2>
+		</section>
+
+		<section class="slide" id="tartalom">
+			<h2>Tartalom</h2>
+			<ul>
+				<li>Használt eszközök
+					<ul>
+						<li><a href="http://szamtud2.uni-corvinus.hu:3000" target="_blank">Cloud9</a></li>
+						<li><a href="https://github.com/" target="_blank">GitHub</a></li>
+						<li><a href="https://www.google.com/chrome?hl=hu" target="_blank">Chrome</a> és <a href="http://www.mozilla.org/hu/firefox/new/" target="_blank">FireFox</a></li>
+						<li><a href="#chrome">Console.log</a></li>
+						<li><a href="#egyeb_software">Egyéb software-ek</a></li>
+					</ul>
+				</li>
+				<li>Portáltechnológia BSc összefoglalás
+					<ul>
+						<li><a href="#adatszerkezetek_tomb">Adatszerkezetek</a></li>
+						<li><a href="#kliens-szerver_architektura">Kliens-szerver architektúra</a></li>
+						<li><a href="#html">HTML & CSS</a></li>
+						<li><a href="#GET_POST">GET/POST, QueryString, Session, Cookie, Regex, MVC</a></li>
+						<li><a href="#doboz_modell_static">Doboz modell</a></li>
+					</ul>
+				</li>
+				<li><a href="#js_alapok">JS alapjai</a>
+					<ul>
+						<li><a href="#js_the_good_parts">Douglas Crockford: The Good Parts</a></li>
+						<li><a href="#alapveto_utasitasok">Alapvető utasítások</a></li>
+						<li><a href="#metodus_hivasi_minta">Metódus hívási minták</a></li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="chrome">
+			<h2>Chrome</h2>
+			<ul>
+				<li>Ctrl + Shift + I (Win: F12)
+					<ul>
+						<li>Console: Esc</li>
+					</ul>
+				</li>
+				<li>Jobb kattintás: Inspect Element</li>
+			</ul>
+			<ul>
+				<li><strong>copy(document.body.innerText)</strong></li>
+				<li><strong>clear()</strong></li>
+				<li><strong>$0</strong> - jelenleg kiválasztott elem</li>
+				<li><strong>console.log('üzenet');</strong></li>
+				<li><strong>inspect($0);</strong></li>
+			</ul>
+		</section>
+
+		<section class="slide" id="chrome_debug">
+			<h2>Chrome üzenetek</h2>
+			<pre><code contenteditable="true" id="console_log_code">console.log("Hello world");
+//console.log(2, 4, 5, "foo");
+//console.log("%s is %d years old", "Bob", 42);</code></pre>
+			<button onclick="javascript:executeScript('console_log_code');">Kód futtatása</button>
+			<p>Színezés</p>
+			<pre><code contenteditable="true" id="console_color_code">console.error("Error");
+console.warn("Warning");</code></pre>
+			<button onclick="javascript:executeScript('console_color_code');">Kód futtatása</button>
+			<p>Idő, csoportok</p>
+			<pre><code contenteditable="true" id="console_time_code">console.time("time");
+console.timeEnd("time");
+
+console.group("cím");
+console.dir({name: "Gipsz Jakab"});
+console.groupEnd("cim");</code></pre>
+			<button onclick="javascript:executeScript('console_time_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="chrome_network">
+			<h2>Network</h2>
+			<ul>
+				<li>kék vonal: DOMContent event fired
+					<ul>
+						<li>documentReady</li>
+					</ul>
+				</li>
+				<li>piros vonal: Load event fired
+					<ul>
+						<li>képek és iframe-ek is betöltődnek</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="chrome_egyeb">
+			<h2>Chrome egyéb</h2>
+			<ul>
+				<li><a href="http://html5demos.com/database-rollback" target="_blank">HTML5 demos</a>
+					<ul>
+						<li>SELECT * FROM foo;</li>
+					</ul>
+				</li>
+				<li>Audits
+					<ul>
+						<li>Hálózat használat és oldal teljesítmény teszt</li>
+					</ul>
+				</li>
+				<li>Profiles
+					<ul>
+						<li><a href="http://media.tojicode.com/q3bsp/" target="_blank">Quake III</a></li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="chrome_console">
+			<h2>Console parancsok</h2>
+			<ul>
+				<li>$(id)</li>
+				<li>$$</li>
+				<li>$x(xpath)</li>
+				<li>$0</li>
+				<li>$1</li>
+				<li><a href="http://getfirebug.com/wiki/index.php/Command_Line_API
+">Command Line API</a></li>
+				<li><a href="http://getfirebug.com/logging">Loggolás</a></li>
+			</ul>
+		</section>
+		
+		<section class="slide" id="egyeb_software">
+			<h2>Egyéb software-ek</h2>
+			<ul>
+				<li>Segédprogramok
+					<ul>
+						<li><a href="http://jsfiddle.net" target="_blank">JSFiddle.net</a> - Javascript futtatása böngészőből (<a href="http://jsfiddle.net/84EB9/2/" target="_blank">Teszt</a>, <a href="http://jsfiddle.net/4FNeB/44/" target="_blank">Twitter teszt</a>)</li>
+						<li><a href="http://modernizr.com" target="_blank">Modernizer</a> - böngésző képességeinek tesztelése szolgáló JS (<a href="http://modernizr.github.com/Modernizr/test/" target="_blank">Teszt</a>)</li>
+						<li><a href="http://jsperf.com" target="_blank">JS Perf</a> - JS teljesítménytesztelő alkalmazás (<a href="http://jsperf.com/increment-test" target="_blank">Increment test</a>)</li>
+					</ul>
+				</li>
+				<pre><code>&lt;script src="modernizr.js" type="text/javascript"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript"&gt;
+if (Modernizr.websockets) {
+    console.log('Web Socket support');
+} else {
+    console.log('no Web Socket support');
+}</code></pre>
+				<button onclick="javascript:modernizrCheck();">Kód futtatása</button>
+				<li>Információ
+					<ul>
+						<li><a href="http://html5test.com" target="_blank">HTML5 test</a> - böngészők HTML5-ös képességeit bemutató weblap</li>
+						<li><a href="http://caniuse.com" target="_blank">CanIUse.com</a> - HTML5 képességek kategorizálva</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="adatszerkezetek_tomb">
+			<h2>Adatszerkezetek - tömb (JS)</h2>
+			<pre><code contenteditable="true" id="adatszerkezetek_tomb_code">//var cars = new Array("Volvo", "Saab", "Volkswagen");
+var cars = ["Volvo", "Saab", "Volkswagen"];
+
+console.log(cars);
+
+cars[0] = "Mazda";
+
+console.log(cars);
+</code></pre>
+			<button onclick="javascript:executeScript('adatszerkezetek_tomb_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="adatszerkezetek_asszociativ_tomb">
+			<h2>Adatszerkezetek - Asszociatív tömb (PHP)</h2>
+			<pre><code>students = array(
+	"AVFBVH" => "Kiss Géza",
+	"JKKLNN" => "Nagy Sándor",
+	"ZHJUKJ" => "Kovács Péter"
+);
+
+echo students['AVFBVH']." ".students['ZHJUKJ']);
+
+students['AVFBVH'] = "Nagy Péter";
+students['ZHJUKJ'] = "Kovács András";
+</code></pre>
+		</section>
+
+		<section class="slide" id="adatszerkezetek_objektum">
+			<h2>Adatszerkezetek - Objektum (JS)</h2>
+			<pre><code contenteditable="true" id="adatszerkezetek_objektum_code">var students = {}; //new Object();
+students.neptun = "AVFBVH";
+students.name = "Kiss Géza";
+students.age = 20;
+
+/*var students = {
+	neptun: "AVFBVH",
+	name: "Kiss Géza",
+	age: 20
+}*/
+
+console.log(students.name);
+</code></pre>
+			<button onclick="javascript:executeScript('adatszerkezetek_objektum_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="webes_platform_fejlodese">
+			<h2>Webes platform fejlődése</h2>
+			<blockquote cite="http://example.org">
+				<p>Never underestimate the web</p>
+				<p><cite>Vic Gundotra - Google I/O (2009. május 27.)</cite></p>
+			</blockquote>
+			
+			<p>Azt hitték, hogy a webes alkalmazások soha nem lehetnek az asztali software-ek riválisai<br/>
+			<ul>
+				<li>2001 - Keyhole Inc</li>
+				<li>2004 - Google felvásárolta</li>
+			</ul>
+			
+			<a href="http://evolutionofweb.appspot.com/#/evolution/day" target="_blank">Internet fejlődése</a>
+		</section>
+
+		<section class="slide" id="kliens-szerver_architektura">
+			<h2>Kliens-szerver architektúra</h2>
+			<img src="images/client-server_architecture.png">
+		</section>
+
+		<section class="slide" id="kliens-szerver_architektura_magyarazat">
+			<h2>Kliens-szerver architektúra</h2>
+			<ul>
+				<li>A kommunikációban résztvevő két fél nem egyenrangú módon vesz részt, hanem dedikált szerepeket töltenek be.</li>
+				<li>A jellemzően a kliens kezdeményezi, mégpedig azzal a céllal, hogy valamilyen műveletet vagy lekérdezést végeztessen el a szerverrel. A szerver a kérést megkapva elvégzi a megfelelő lépéseket, majd az eredményt a kliens felé továbbítja.</li>
+			</ul>
+			<iframe src="http://player.vimeo.com/video/40554843" width="560" height="314" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+		</section>
+
+		<section class="slide" id="kliens">
+			<h2>Kliens</h2>
+			<img src="images/client.png">
+			<ul>
+				<li>Olyan számítógép hozzáfér egy (távoli) számítógép szolgáltatáshoz</li>
+				<li>A feldolgozási kérések forrásául szolgáló fél</li>
+			</ul>
+		</section>
+		
+		<section class="slide" id="szerver">
+			<h2>Szerver</h2>
+			<img src="images/server.png">
+			<ul>
+				<li>A szerver-kliens architektúrában a tényleges feldolgozást végző, a klienstől érkező kérésekre a válaszokat elkészítő fél
+webszerver, levelezőszerver, fileszerver</li>
+				<li>A szerverek a klienseknél általában jóval nagyobb számítási kapacitással, memóriával, lemezterülettel, és hálózati sávszélességgel rendelkeznek, hogy akkor is gyorsan tudják a beérkező kéréseket kiszolgálni, ha egyszerre több kliens fordul hozzájuk.</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="kliens-szerver_architektura_elonyei">
+			<h2>Kliens-szerver architektúra előnyei</h2>
+			<ul>
+				<li>Sokoldalú, üzenetalapú moduláris infrastruktúra</li>
+				<li>Növeli a használhatóságot, rugalmasságot, együttműködési lehetőséget és a bővíthetőséget</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="3_lepcsos_architektura">
+			<h2>3 lépcsős architektúra</h2>
+			<img src="images/3_tier_architecture.png">
+			<ul>
+				<li>Kliens</li>
+				<li>Webszerver</li>
+				<li>Adatbázis szerver</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="atalakulo_webes_architektura">
+			<h2>Átalakuló webes architektúra</h2>
+			<h3>Múlt</h3>
+			<ul>
+				<li class="slide">Szerverek generálták a HTML-t a különböző böngészők számára</li>
+				<li class="slide">Különböző JS és CSS a böngészők számára</li>
+				<li class="slide">Kliensek ugyanarról a szerverről töltik le az adatot, ahonnan a HTML-t</li>
+			</ul>
+			<h3>Jelen/Jövő</h3>
+			<ul>
+				<li class="slide">Szerverek nem feltétlenül erőforrásigényesek, böngészők okosak</li>
+				<li class="slide">Kliens framework-ök elrejtik a böngészők közötti különbségeket</li>
+				<li class="slide">Kliensek több szerverről töltik le az adatot</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="html">
+			<h2>HTML</h2>
+			<ul>
+				<li>hiperszöveges jelölőnyelv</li>
+				<li>internetes szabvány</li>
+				<li>változatai
+					<ul>
+						<li>HTML 4.01</li>
+						<li>xHTML</li>
+						<li>HTML 5</li>
+					</ul>
+				</li>
+			</ul>
+			<p class="slide">
+				<img src="images/HTML5_Logo_256.png">
+			</p>
+		</section>
+
+		<section class="slide" id="css">
+			<h2>CSS</h2>
+			<ul>
+				<li>Cascading Style Sheets</li>
+				<li>stílusleíró nyelv</li>
+				<li>HTML/xHTML/HTML5 típusú strukturált dokumentumok megjelenését írja le</li>
+				<li>HTML kezdete óra jelen van
+					<ul>
+						<li>CSS level 1 (1990)</li>
+						<li>CSS level 2 (1998)</li>
+						<li>CSS level 3 (jelenleg is fejlesztés alatt áll)</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="style_precedenciak">
+			<h2>Style precedenciák</h2>
+			<ul>
+				<li>CSS</li>
+				<li>style</li>
+				<li>css !important</li>
+				<li>style !important</li>
+			</ul>
+		</section>
+		
+		<section class="slide" id="bongeszok">
+			<h2>Legismertebb böngészők</h2>
+			<ul>
+				<li>Microsoft Internet Explorer</li>
+				<li>Google Chrome</li>
+				<li>Mozilla Firefox</li>
+				<li>Opera</li>
+				<li>Safari</li>
+			</ul>
+			<a href="http://acid3.acidtests.org">Acid test </a><br/>
+			<a href="http://bcheck.scanit.be/bcheck">Security test</a><br/>
+			<a href="http://www.w3schools.com/browsers/browsers_stats.asp">Browser statistics</a>
+		</section>
+
+		<section class="slide" id="GET_POST">
+			<h2>GET/POST</h2>
+			<ul>
+				<li>GET <a href="http://www.w3schools.com/tags/tryit.asp?filename=tryhtml_form_method" target="_blank">Teszt</a>
+					<ul>
+						<li>URL részeként</li>
+						<li>Jelszó továbbítására nem alkamas</li>
+						<li>Querystring limit</li>
+					</ul>				
+				</li>
+				<li>POST <a href="http://hroch486.icpf.cas.cz/formpost.html" target="_blank">Teszt</a></li>
+				<li>PUT</li>
+				<li>DELETE</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="querystring">
+			<h2>Querystring</h2>
+			<ul>
+				<li>Adat része az URL-nek</li>
+				<li>http://server/path/program?query_string</li>
+				<li>Elválasztójelek: &, &amp;, ;</li>
+			</ul>
+			<ul>
+				<li><strong>PHP</strong> - $_GET asszocatív tömb</li>
+				<li><strong>JS</strong> - document.URL
+					<ul>
+						<li>document.location.substring(fullURL.indexOf('?')+1, document.location.length)</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="szep_url-ek">
+			<h2>URL rewrite - szép URL-ek</h2>
+			<ul>
+				<li>Apache (mod_rewrite)
+					<ul>
+						<li>.htaccess</li>
+						<li>Minden alkönyvtárra érvényes</li>
+						<li>Az URL-t a webszerver dolgozza fel</li>
+					</ul>
+				</li>
+				<li>SEO</li>
+				<li><a href="http://www.bbc.co.uk/sport/0/football/19231340">http://www.bbc.co.uk/sport/0/football/19231340</a></li>
+			</ul>
+		</section>
+
+		<section class="slide" id="cookie">
+			<h2>Cookie</h2>
+			<ul>
+				<li>Eltárolt információ a kliens oldalon</li>
+				<li>Weblapok által generált adat</li>
+				<li>Az információ a böngésző kikapcsolása után is megmarad</li>
+				<li>Netscape Communications-nél használták először</li>
+				<li>A kérés küldésekor a böngésző elküldi a szervernek</li>
+			</ul>
+			<p>Cookie értéke: <input type="text" id="cookie_value"></p>
+			<button onclick="javascript:setCookie('portal', $('#cookie_value').val(), 365);">Cookie mentése</button>
+			<button onclick="javascript:console.log(getCookie('portal'));">Cookie kiolvasása</button>
+		</section>
+
+		<section class="slide" id="session">
+			<h2>Session</h2>
+			<ul>
+				<li>Munkamenet</li>
+				<li>Felhasználó azonosítása</li>
+				<li>SESSION_ID – egyedi kulcs</li>
+				<li>Session a server oldalon van eltárolva</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="regularis_kifejezesek">
+			<h2>Reguláris kifejezések</h2>
+			<ul>
+				<li>Regular expression, regex, regexp</li>
+				<li>Szintaktikai szabályok szerint leírt string, amivel meghatározható stringek egy halmaza</li>
+				<li>Használható
+					<ul>
+						<li>Szöveg keresésekor</li>
+						<li>Minták keresésekor</li>
+					</ul>
+				</li>
+				<li>Széles körben támogatott
+					<ul>
+						<li>Szövegszerkesztők</li>
+						<li>Programozási nyelvek</li>
+					</ul>
+				</li>
+			</ul>
+			<pre><code id="regex_code" contenteditable="true">var str = "The rain in SPAIN stays mainly in the plain"; 
+
+console.log(str.match(/the/gi));
+//console.log(str.match(/ain/gi));
+</code></pre>
+			<button onclick="javascript:executeScript('regex_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="online_regex">
+			<h2>Online regex</h2>
+			<ul>
+				<li>Online regex</li>
+					<ul>
+						<li><a href="http://www.regexplanet.com/advanced/java/index.html" target="_blank">Regular Expression Test Page</a></li>
+						<li><a href="http://www.regular-expressions.info/javascriptexample.html" target="_blank">Regular-Expressions.net</a></li>
+						<li><a href="http://www.pagecolumn.com/tool/regtest.htm" target="_blank">Online Regular Expression Tester</a></li>
+					</ul>
+				</li>
+				<li>Tutorial
+					<ul>
+						<li><a href="http://www.phpro.org/tutorials/Introduction-to-PHP-Regex.html" target="_blank">Introduction to Regex</a></li>
+					</ul>
+				</li>
+				<li><a href="http://www.regexbuddy.com">RegexBuddy</a></li>
+			</ul>
+		</section>
+
+		<section class="slide" id="ajax">
+			<h2>Mi az AJAX?</h2>
+			<ul>
+				<li>Asynchronous JavaScript & XML</li>
+				<li>Információ lekérése a háttérben az oldal újratöltése nélkül</li>
+				<li>Technológiák összessége
+					<ul>
+						<li>HTML, XHTML & CSS</li>
+						<li>DOM</li>
+						<li>XML, XSLT, JSON</li>
+						<li>XMLHttpRequest objektum</li>
+						<li>JS</li>
+					</ul>
+				</li>
+			</ul>
+			<pre><code id="ajax_code" contenteditable="true">$.ajax({
+	url: "test.txt"
+}).done(function(data) { 
+	console.log(data);
+});</code></pre>
+			<button onclick="javascript:executeScript('ajax_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="js_framework">
+			<h2>JS framework</h2>
+			<ul>
+				<li>Összegyűjtött függvények</li>
+				<li>Használatával jelentősen felgyorsítható a fejlesztés</li>
+				<li>Felület a különböző böngészők egységes kezeléséhez</li>
+				<li><a href="http://en.wikipedia.org/wiki/Comparison_of_JavaScript_frameworks" target="_blank">Comparison of JS frameworks</a></li>
+			</ul>
+			<ul>
+				<li><a href="http://yuilibrary.com" target="_blank">YUI 2 & 3</a></li>
+				<li><a href="http://jquery.com" target="_blank">jQuery</a></li>
+				<li><a href="http://mootools.com" target="_blank">mooTools</a></li>
+				<li><a href="http://sencha.com" target="_blank">ExtJS</a></li>
+			</ul>
+		</section>
+
+		<!--section class="slide" id="flash_flex">
+			<h2>Flash/Flex</h2>
+			<ul>
+				<li>Adobe Flash</li>
+				<li><strong>R</strong>ich <strong>I</strong>nternet <strong>A</strong>pplication
+					<ul>
+						<li>Animáció, videó és interaktivitás</li>
+						<li>Vektorgrafikus képek</li>
+						<li>ActionScript</li>
+					</ul>
+				</li>
+			</ul>
+			<ul>
+				<li><a href="http://en.wikipedia.org/wiki/Adobe_Flash">Adobe Flash</a></li>
+			</ul>
+		</section>
+
+		<section class="slide" id="flash_vs_html5">
+			<h2>Flash vs HTML5</h2>
+			<table>
+				<tr>
+					<td>&nbsp;</td>
+					<td>Flash</td>
+					<td>HTML5</td>
+				</tr>
+				<tr>
+					<td>Elterjedtség</td>
+					<td>98% (2 Mrd felhasználó)</td>
+					<td>40% (800 mió felhasználó)</td>
+				</tr>
+				<tr>
+					<td>Támogatás</td>
+					<td>2D (flash.display.graphics)<br/>3D (flash.geom.matrix3d)<br/>SVG<br/>Video<br/>Audio<br/>Filter Effects<br/>File API<br/>Socket Connection</td>
+					<td>2D (canvas)<br/>3D (webGL)<br/>SVG<br/>Video<br/>Audio<br/>Filter Effects<br/>File API<br/>Socket Connection</td>
+				</tr>
+				<tr>
+					<td>Browser readiness</td>
+					<td>94%</td>
+					<td>IE8 (13%), IE9 (69%), FF 3.6 (75%), FF4 (88%), Safari5 (81%), Chrome10 (94%)</td>
+				</tr>
+			</table>
+		</section-->
+
+		<section class="slide" id="mvc"><!-- kiegészíteni -->
+			<h2>Model, View, Controller</h2>
+			<ul>
+				<li>softwaremérnöki munkában használt szerkezeti minta</li>
+				<li>Üzleti logika és a megjelenítés szétválasztása</li>
+				<li>Interface-ek képzése</li>
+				<li>Model
+					<ul>
+						<li class="slide">Az alkalmazás által kezelt információk tartomány-specifikus ábrázolása</li>
+						<li class="slide">Átmeneti tároló eljárások</li>
+						<li class="slide">Állandó tárolóval való kapcsolat</li>
+					</ul>
+				</li>
+				<li class="slide">View
+					<ul>
+						<li class="slide">Megjeleníti a modellben tárolt információkat egy megfelelő alakban, mely alkalmas a felhasználói interakcióra</li>
+					</ul>
+				</li>
+				<li class="slide">Controller
+					<ul>
+						<li class="slide">Az eseményeket, jellemzően felhasználói műveleteket dolgozza fel és válaszol rájuk, illetve a modellben történő változásokat is kiválthat</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="oldal_teljesitmenye">
+			<h2>Oldal teljesítménye</h2>
+			<ul>
+				<li>Oldal teljesítményének mérése
+					<ul>
+						<li><a href="http://developer.yahoo.com/yslow/" target="_blank">Yahoo YSlow</a> (2007. július)</li>
+						<li><a href="https://developers.google.com/speed/pagespeed/" target="_blank">Google Page Speed</a></li>
+					</ul>
+				</li>
+				<li>Yahoo mérnökei (front-end engineer)
+					<ul>
+						<li>34 kritikus pontot állapítottak meg, amelyek hatással vannak a portál teljesítményére (23 mérhető)</li>
+						<li>FF, Chrome, Opera, Mobile</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="smush_it"><!-- teszt -->
+			<h2>Smush.it<sup>TM</sup></h2>
+			<ul>
+				<li>Smush.it<sup>TM</sup> képeket tömörít</li>
+				<li>Tömörítés után elkészít egy reportot, hogy hány százalékkal kevesebb helyet foglalnak a képek</li>
+				<li>Lehetséges, hogy formátumot vált</li>
+				<li>A képek zip fileban letölthetőek</li>
+				<li><a href="http://www.smushit.com/ysmush.it/" target="_blank">Smush.it<sup>TM</sup></a></li>
+			</ul>
+		</section>
+
+		<section class="slide" id="jshint">
+			<h2>JSHint</h2>
+			<ul>
+				<li><a href="http://www.jshint.com" target="_blank">JavaScript Code Quality Tool</a></li>
+				<li>http://www.w3schools.com/js/tryit.asp?filename=tryjs_object_for_in</li>			
+			</ul>
+		</section>
+
+		<section class="slide" id="doboz_modell_static"><!-- teszt -->
+			<h2>Static</h2>
+			<ul>
+				<li>Alapértelmezett pozíciója az összes elemnek</li>
+				<li>Az elemet oda tesszük ki, ahol normál esetben megjelenne</li>
+				<li>Nem kell kiírni, kivéve ha felül akarunk írni egy előző értéket</li>
+			</ul>
+			<pre><code>#div-1 {
+	position:static;
+}</code></pre>
+			<a href="http://www.barelyfitz.com/screencast/html-training/css/positioning/" target="_blank">Teszt</a>
+		</section>
+
+		<section class="slide" id="doboz_modell_relative">
+			<h2>Relative</h2>
+			<ul>
+				<li>Relatív pozíció megadásával az alábbi tulajdonságokat lehet használni
+					<ul>
+						<li>top, bottom</li>
+						<li>left, right</li>
+					</ul>
+				</li>
+				<li>Meghatározott értékkel toljuk el az elemeket a jelenlegi pozíciójukból</li>
+			</ul>
+			<pre><code>#div-1 {
+	position:relative;
+	top:20px;
+	left:-40px;
+}</code></pre>
+			<a href="http://www.barelyfitz.com/screencast/html-training/css/positioning/" target="_blank">Teszt</a>
+		</section>
+
+		<section class="slide" id="doboz_modell_absolute">
+			<h2>Absolute</h2>
+			<ul>
+				<li>Abszolút pozíció használatával az elemet eltávolítjuk a dokumentumból és a megfelelő pozícióra tesszük</li>
+				<li>Bal felső sarok a 0,0</li>
+			</ul>
+			<pre><code>#div-1a {
+	position:absolute;
+	top:0;
+	right:0;
+	width:200px;
+}</code></pre>
+			<a href="http://www.barelyfitz.com/screencast/html-training/css/positioning/" target="_blank">Teszt</a>
+		</section>
+
+		<section class="slide" id="doboz_modell_absolute_relative">
+			<h2>Absolute és relative</h2>
+			<ul>
+				<li>Ha relatívan pozícionáljuk a div-1-et, akkor az elemek a div-1-en belül a div-1-hez lesznek relatívak</li>
+				<li>Div-1a-nak ezt követően abszolút pozíció beállítva a div-1-hez képest pozícionálhatunk</li>
+			</ul>
+			<pre><code>#div-1 {
+	position:relative;
+}
+
+#div-1a {
+	position:absolute;
+	top:0;
+	right:0;
+	width:200px;
+}
+</code></pre>
+			<a href="http://www.barelyfitz.com/screencast/html-training/css/positioning/" target="_blank">Teszt</a>
+		</section>
+
+		<section class="slide" id="doboz_modell_2_hasab">
+			<h2>2 abszolút hasáb</h2>
+			<ul>
+				<li>2 hasábos elrendezés</li>
+			</ul>
+			<pre><code>#div-1 {
+	position:relative;
+}
+
+#div-1a {
+	position:absolute;
+	top:0;
+	right:0;
+	width:200px;
+}
+
+#div-1b {
+	position:absolute;
+	top:0;
+	left:0;
+	width:200px;
+}</code></pre>
+			<a href="http://www.barelyfitz.com/screencast/html-training/css/positioning/" target="_blank">Teszt</a>
+		</section>
+
+		<section class="slide" id="doboz_modell_float">
+			<h2>2 abszolút hasáb</h2>
+			<ul>
+				<li>Lehetséges az egyes elemek lebegtetése</li>
+				<li>"Elnyomjuk" az egyes elemeket jobbra vagy balra, amennyire csak lehetséges</li>
+			</ul>
+			<pre><code>#div-1a {
+	float:left;
+	width:200px;
+}</code></pre>
+			<a href="http://www.barelyfitz.com/screencast/html-training/css/positioning/" target="_blank">Teszt</a>
+		</section>
+
+		<section class="slide" id="doboz_modell_hasabok_lebegtetese">
+			<h2>Hasábok lebegtetése</h2>
+			<ul>
+				<li>Több div lebegtetése esetén, mindkettőt lebegtetni kell, ha egymás mellé akarom betenni</li>
+				<li>display:block-olt elemek egymás mellé csoportosítására</li>
+			</ul>
+			<pre><code>#div-1a {
+	float:left;
+	width:150px;
+}
+
+#div-1b {
+	float:left;
+	width:150px;
+}
+</code></pre>
+			<a href="http://www.barelyfitz.com/screencast/html-training/css/positioning/" target="_blank">Teszt</a>
+		</section>
+
+		<section class="slide" id="doboz_modell_clear">
+			<h2>Hasábok lebegtetése</h2>
+			<ul>
+				<li>A clear paranccsal törölhetjük a lebegtetést</li>
+			</ul>
+			<pre><code>#div-1a {
+	float:left;
+	width:190px;
+}
+
+#div-1b {
+	float:left;
+	width:190px;
+}
+
+#div-1c {
+	clear:both;
+}</code></pre>
+			<a href="http://www.barelyfitz.com/screencast/html-training/css/positioning/" target="_blank">Teszt</a>
+		</section>
+
+		<section class="slide" id="js_alapok">
+			<h1>JS alapok</h1>
+		</section>
+
+		<section class="slide" id="james_governor">
+			<h2>JavaScript ma</h2>
+			<blockquote cite="http://example.org">
+				<p>learning Javascript used to mean you weren't a serious software developer - today, not learning Javascript means the same thing</p>
+				<p><cite>James Governor (@monkchips)</cite></p>
+			</blockquote>
+		</section>
+
+		<section class="slide" id="js_bevezetes">
+			<h2>JavaScript</h2>
+			<ul>
+				<li>objektumalapú szkriptnyelv</li>
+				<li>gyengén típusos</li>
+				<li>C, Java és a SmallTalk alapjait másolja</li>
+				<li>Brendan Eich a Netscape Communications mérnöke fejlesztette ki (1995, NN 2.0)</li>
+					<ul>
+						<li>Mocha</li>
+						<li>LiveScript</li>
+					</ul>
+				</li>
+				<li>ECMAScript 3 – 1999</li>
+				<li>ECMAScript 5 – 2009 (nagy része még mindig nincs implementálva)</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="js_kiegeszites">
+			<h2>Kiegészítés</h2>
+			<ul>
+				<li>nem tökéletes nyelv, sőt rengeteg tervezési hiba van benne
+					<ul>
+						<li>minden programozási nyelvből építkezik</li>
+						<li>15 éves nyelv</li>
+						<li>8 nap alatt készült el</li>
+					</ul>
+				</li>
+				<li>Figyelni kell arra, hogy mit nem tilos (illik) csinálni, annak ellenére, hogy a nyelv illetve a fordító(böngésző) megengedi</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="szerkesztes_futasi_kornyezet">
+			<h2>Szerkesztés, futási környezet</h2>
+			<ul>
+				<li>text/javascript, application/javascript
+					<ul>
+						<li>.html</li>
+						<li>.js</li>
+					</ul>
+				</li>
+				<li>Futási környezet
+					<ul>
+						<li>webböngésző</li>
+					</ul>
+				</li>
+				<li>Szabványosították a nyelvet, azonban a különböző böngészők eltérő módon implementálják</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="js_tipusok">
+			<h2>Típusok</h2>
+			<ul>
+				<li>function</li>
+				<li>Object</li>
+				<li>string</li>
+				<li>undefined</li>
+				<li>number</li>
+				<li>boolean</li>
+			</ul>
+			<p>Változó deklarálás:</p>
+			<pre><code>var valtozoNevKisNagyBetuvel = 0 || null || undefined || '' || false;</pre></code>
+			<p>Függvények:</p>
+			<pre><code>// Anonymous
+function() {
+	var alma = ’belma’;
+	doSg();
+	return true;
+}
+
+// Named
+function doSg(param1, param2) {
+	return false;
+}</code></pre>
+		</section>
+
+		<section class="slide" id="js_oop">
+			<h2>JS OOP</h2>
+			<pre><code id="oop_code" contenteditable="true">var Tree = function(colorCode) {
+    this.colorCode = colorCode;
+};
+
+Tree.prototype.getColor = function() {
+    return this.colorCode;
+};
+var AppleTree = function(colorCode) {
+    this.colorCode = colorCode;
+};
+
+AppleTree.prototype = new Tree();
+
+var appleTree = new AppleTree("red");
+console.log(appleTree.getColor());​</code></pre>
+			<button onclick="javascript:executeScript('oop_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="js_the_good_parts">
+			<img src="images/javascript-the-good-parts.jpg">
+			<h2>JavaScript: The Good Parts - Douglas Crockford</h2>
+		</section>
+
+		<section class="slide" id="js_bevezeto">
+			<h2>Bevezető</h2>
+			<ul>
+				<li>JavaScript egy fontos programnyelv:
+					<ul>
+						<li><strong>webböngésző nyelve</strong></li>
+						<li>az egyetlen nyelv, amelyet az összes böngésző támogat</li>
+					</ul>
+				</li>
+				<li>DOM (Document Object Model) a böngésző API-ja
+					<ul>
+						<li>szegényes leírás</li>
+						<li>inkonzisztens implementáció</li>
+						<li>Java Appletek hanyatlása után a JavaScript a web nyelvévé vált</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="gyenge_tipusossag">
+			<h2>Gyenge típusosság</h2>
+			<ul>
+				<li>Erős típusosság esetén már a compiler kiszűri a hibákat
+					<ul>
+						<li>minél hamarabb kiszűrjük és javítjuk a hibákat, annál "kevesebbe kerül"</li>
+					</ul>
+				</li>
+				<li>Nincs szükség castolásra (<a href="http://zero.milosz.ca/" target="_blank">Zeros in JavaScript</a>)</li>
+			</ul>			
+		</section>
+
+		<section class="slide" id="objektumok">
+			<h2>Objektumok</h2>
+			<ul>
+				<li>Objektumok létrehozhatóak a komponenseik felsorolásával</li>
+				<li>JSON – JavaScript Object Notation</li>
+			</ul>
+			<pre><code id="js_object_code" contenteditable="true">var myObject = new Object();
+// var myObject = {szam: 4, szo: "Hello", fuggveny = function() {console.log("Hello");}
+
+myObject.szam = 4;
+myObject.szo = "Hello";
+myObject.fuggveny = function() {console.log("Hello");}
+    
+console.log(myObject.szam);
+myObject.fuggveny();</code></pre>
+			<button onclick="javascript:executeScript('js_object_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="prototipusos_oroklodes">
+			<h2>Prototípusos öröklődés</h2>
+			<ul>
+				<li>Osztály nélküli objektum rendszer</li>
+				<li>Objektumok más objektumoktól örökölhetnek tulajdonságokat</li>
+			</ul>
+			<pre><code id="js_inheritance_code" contenteditable="true">var tomb = [2, "kutya", {nev: "Zoli", kor: 18}, 4];
+
+Array.prototype.has = function(value) {
+	for (l=0; l != this.length; l++) {
+		if (this[l] == value) return true;
+	}
+
+	return false;
+}
+
+console.log(tomb.has(1)+" "+tomb.has(2));</code></pre>
+			<button onclick="javascript:executeScript('js_inheritance_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="js_bad_parts">
+			<h2>Bad parts</h2>
+			<ul>
+				<li>Globális változók használatára épül</li>
+				<li>Az összes felső szintű változó globális objektumba kerülnek egy névtér alá
+					<ul>
+						<li>több könyvtár használata esetén konfliktus lehetséges</li>
+					</ul>
+				</li>
+				<li>Function scoping van és nem block scoping</li>
+			</ul>
+			<pre><code id="js_scoping_code" contenteditable="true">var executeMe = function() {
+    var teszt = "teszt";
+    if (teszt === "teszt") {
+        var teszt2 = "teszt2";
+    }
+    console.log(teszt2);
+};
+
+executeMe();
+</code></pre>
+			<button onclick="javascript:executeScript('js_scoping_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="elso_alkalmazas">
+			<h2>Első alkalmazás</h2>
+			<p><strong>html</strong></p>
+			<pre><code>&lt;html&gt;
+	&lt;body&gt;
+		&lt;pre&gt;
+			&lt;script src="program.js"&gt;&lt;/script&gt;
+		&lt;/pre&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+			<p><strong>javascript</strong></p>
+			<pre><code>document.writeln('Hello, world!');</code></pre>
+		</section>
+
+		<section class="slide" id="komment">
+			<h2>Kommentek és nevek</h2>
+			<ul>
+				<li>Sor: // komment</li>
+				<li>Blokk: /* komment */</li>
+				<li>Nevek elnevezési szabályai</li>
+				<li>Nem engedélyezett a foglalt nevek használata
+					<ul>
+						<li>for, function, class stb.</li>
+					</ul>
+				</li>
+				<li>Kivételek
+					<ul>
+						<li>undefined, NaN, Infinity</li>
+					</ul>
+				</li>
+				<li>Nem használhatóak sem paraméternek, sem attribútumként</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="szamok">
+			<h2>Számok</h2>
+			<ul>
+				<li>Egy fajta szám típus létezik</li>
+				<li>Minden szám 64-bites lebegőpontos
+					<ul>
+						<li>Javaban a double</li>
+						<li>1 és a 1.0 megegyezik</li>
+					</ul>
+				</li>
+				<li>NaN egy szám, amelyet egy művelet eredményez, amely nem képes normális eredményre
+					<ul>
+						<li>Semmivel nem egyenlő, még saját magával sem detektálása: isNaN( number )</li>
+						<li>Infinity reprezentálja az összes 1.797e+308-nál nagyobb számot</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="string">
+			<h2>String</h2>
+			<ul>
+				<li>' vagy " határolja</li>
+				<li>0 vagy több karakter</li>
+				<li>\ az escape karakter</li>
+				<li>Nincs karakter típus</li>
+				<li>"A" === "\u0041"</li>
+				<li>.length tulajdonság</li>
+				<li>.toUpperCase()</li>
+			</ul>
+			<ul>
+				<li>\', \"</li>
+				<li>\\ – backslash</li>
+				<li>\/ – slash</li>
+				<li>\b – backspace</li>
+				<li>\f – formfeed</li>
+				<li>\n – new line</li>
+				<li>\r – carriage return</li>
+				<li>\t – tab</li>
+				<li>\u – 4 hexadecimális szám</li>
+			</ul>
+		</section>
+
+		<section class="slide">
+			<h2>Statement</h2>
+			<ul>
+				<li>Végrehajtási egység</li>
+				<li>futtatható állítások sorozata</li>
+				<li>nyitó és záró &lt;script&gt; tag között lévő script egy végrehajtási egység</li>
+				<li>azonnali fordítás és végrehajtás</li>
+				<li>nincs linker, ezért egy közös névtér alá helyez mindent
+					<ul>
+						<li>(a compiler által legenerált objektumokat összefűzi egy futtatható állománnyá)</li>
+					</ul>
+				</li>
+				<li>function-ön belül használva a var parancs private változók lesznek</li>
+			</ul>
+		</section>
+
+		<section class="slide" id="operator_precedencia">
+			<h2>Operátor precedencia</h2>
+			<ol>
+				<li>Member(., []), new</li>
+				<li>function call()</li>
+				<li>++ and --</li>
+				<li>!, ~, unary +, unary - (e.g. -1), typeof, void, delete</li>
+				<li>*, /, %</li>
+				<li>+ and -</li>
+				<li>bitwise shifting (<<, >>, >>>)</li>
+				<li>relational(<, <=, >, >=), in, instanceof</li>
+				<li>equality(==, !=, ===, !==)</li>
+				<li>bitwise-and (&)</li>
+				<li>bitwise-xor (^)</li>
+				<li>bitwise-or (|)</li>
+				<li>logical-and (&&)</li>
+				<li>logical-or (||)</li>
+				<li>conditional (?:)</li>
+				<li>all assignment operators</li>
+				<li>comma (,)</li>
+			</ol>
+		</section>
+
+		<section class="slide" id="alapveto_utasitasok">
+			<h2>Alapvető utasítások</h2>
+			<strong>Deklaráció</strong>
+			<pre><code><strong>var</strong> borso;
+<strong>var</strong> alma = "szöveg";
+<strong>var</strong> a = 1, b;</code></pre>
+			<strong>Elágazás</strong>
+			<pre><code><strong>if</strong> (a == 1) {
+	callFunc();
+} <strong>else</strong> {
+	callFunc2();
+}
+
+<strong>switch</strong> (a) {
+	<strong>case</strong> 1:
+			callFunc();
+		break;
+	<strong>case</strong> 2:
+			callFunc();
+	<strong>default:</strong>
+}</code></pre>
+		</section>
+
+		<section class="slide" id="for_ciklus">
+			<h2>For ciklus</h2>
+			<ul>
+				<li>for (inicializáció; kondíció; inkrementálás) { ismétlődő kód}
+					<ul>
+						<li>mind a 4 rész opcionális</li>
+						<li>inicializálás részben bármilyen érvényes kifejezés szerepelhet</li>
+						<li>kondíció és az inkrementálás rész nem tartalmazhat deklarációt</li>
+					</ul>
+				</li>
+				<pre><code><strong>for</strong>(;;) {
+	console.log(" hello");
+}
+
+<strong>for</strong> (var i=0;i&lt;arr.length;i++) {
+	// do sthing here
+}
+
+<strong>arr.forEach</strong>(function(each) {
+	// do sthing here
+})</code></pre>
+		</section>
+
+		<section class="slide" id="for_ciklus_pelda">
+			<h2>For ciklus példa</h2>
+			<pre><code contenteditable="true" id="for_1_code">function sum(arr) {
+	for (var i=arr.length, r=0; i--; r += arr[i]);
+	return r;
+}
+
+console.log(sum([3,5,0,-2,7,8]));</code></pre>
+			<button onclick="javascript:executeScript('for_1_code');">Kód futtatása</button>
+			<p>&nbsp;</p>
+			<pre><code id="for_2_code">for (
+	var i=2, r=[0,1];
+	i &lt; 15 || console.log(r);
+	r.push(r[i-1]+r[i-2]), i++
+);
+</code></pre>
+			<button onclick="javascript:executeScript('for_2_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="alapveto_utasitasok">
+			<h2>Alapvető utasítások</h2>
+			<pre><code contenteditable="true" id="exception_code">try {
+	x = 3 / y;
+} catch (err) {
+	console.log(err.message);
+}
+</code></pre>
+			<button onclick="javascript:executeScript('exception_code');">Kód futtatása</button>
+			<p>&nbsp;</p>
+			<strong>Operátorok</strong>
+			<ul>
+				<li>+, -, *, /, %</li>
+				<li>||, &&</li>
+				<li>===, !==</li>
+				<li>&gt;=, &lt;=, &gt;, &lt;</li>
+			</ul>		
+		</section>
+
+		<section class="slide" id="literalok">
+			<h2>Literálok</h2>
+			<ul>
+				<li>Number</li>
+				<li>String</li>
+				<li>function
+					<ul>
+						<li>function nev(parameter) {}</li>
+					</ul>
+				</li>
+				<li>Object</li>
+			</ul>
+				<pre><code>var x = new Object();
+x.szoveg = "4";
+x.szam = 6;
+
+x = {szoveg: "4", szam:6};</code></pre>
+			<ul>
+				<li>Array
+					<ul>
+						<li>Nem támogatja az asszociatív tömböket</li>
+					</ul>
+				</li>
+			</ul>
+			<pre><code contenteditable="true" id="array_code">var z = new Array();
+var x = ["szoveg", 1, /[ell]/i, 4.0, {'color':5}, function() {return 5;}];
+var y = [x];
+console.log(y[0][1]);</code></pre>
+			<button onclick="javascript:executeScript('array_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="objektum_pelda">
+			<h2>Objektum példa</h2>
+			<pre><code contenteditable="true" id="object_flight_code">var flight = {
+	airline: "Oceanic",
+	number: 815,
+	departure: {
+		IATA: "SYD",
+		time: "2004-09-22 14:55",
+		city: "Sydney"
+	},
+	arrival: {
+		IATA: "LAX",
+		time: "2004-09-23 10:42",
+		city: "Los Angeles"}
+};
+
+console.log(flight["airline"]+" "+flight.departure.IATA);</code></pre>
+			<button onclick="javascript:executeScript('object_flight_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="prototype">
+			<h2>Prototype</h2>
+			<ul>
+				<li>Minden objektum egy prototípustól képes örökölni</li>
+				<li>Object.prototype</li>
+			</ul>
+			<pre><code>if (typeof Object.beget !== 'function') {
+	Object.beget = function (o) {
+		var F = function () {};
+		F.prototype = o;
+		return new F();
+	};
+}
+
+var another_stooge = Object.beget(stooge);</code></pre>
+		</section>
+
+		<section class="slide" id="function">
+			<h2>Function</h2>
+			<ul>
+				<li>function-ök objektumok</li>
+				<li>objektumok név – érték párok, amelyek a Object.prototype-ből eredeztethetőek</li>
+				<li>a function-ök a Function.prototype-ból eredeztethetőek
+					<ul>
+						<li>két rejtett lehetőséget rejt magában</li>
+						<li>kontextus</li>
+						<li>kód</li>
+					</ul>
+				</li>
+			</ul>
+			<pre><code>var add = function (a, b) {
+	return a+b;
+}</code></pre>
+			<ul>
+				<li>this</li>
+				<li>arguments
+					<ul>
+						<li>caller</li>
+						<li>callee</li>
+					</ul>
+				</li>
+			</ul>
+			<pre><code>(function () {
+	// függvény törzs
+})();</code></pre>
+		</section>
+		
+		<section class="slide" id="prototype_bovites">
+			<h2>Prototype bővítés</h2>
+			<pre><code contenteditable="true" id="number_prototype_code">Number.prototype.integer = function () {
+	return Math[this &lt; 0 ? 'ceil' : 'floor'](this);
+};
+
+console.log((-10 / 3).integer());</code></pre>
+			<button onclick="javascript:executeScript('number_prototype_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="metodus_hivasi_minta">
+			<h2>Metódus hívási minta</h2>
+			<ul>
+				<li>Amikor a függvény egy objektum tulajdonságaként van eltárolva</li>
+			</ul>
+			<pre><code contenteditable="true" id="method_call_1_code">var myObject = {
+	value: 0,
+	increment: function (inc) {
+		this.value += typeof inc === 'number' ? inc : 1;
+	}
+};
+
+myObject.increment();
+console.log(myObject.value);
+</code></pre>
+			<button onclick="javascript:executeScript('method_call_1_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="fuggveny_hivasi_minta">
+			<h2>Függvény hívási minta</h2>
+			<ul>
+				<li>Amikor a függvény nem egy objektum része</li>
+			</ul>
+			<pre><code contenteditable="true" id="method_call_2_code">var add = function(a, b) {
+	return a+b;
+};
+
+console.log(add(3, 4));</code></pre>
+			<button onclick="javascript:executeScript('method_call_2_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="konstruktor_hivasi_minta">
+			<h2>Konstruktor hívási minta</h2>
+			<ul>
+				<li>A Javascript egy prototípusosan öröklődő nyelv</li>
+				<li>Az objektumok más objektumoktól örökölhetnek</li>
+			</ul>
+			<pre><code>var Quo = function (string) {
+	this.status = string;
+};
+
+var myQuo = new Quo("confused");</code></pre>
+		</section>
+
+		<section class="slide" id="apply_fuggvennyel_valo_meghivas">
+			<h2>Apply függvénnyel való meghívás</h2>
+			<pre><code contenteditable="true" id="method_call_4_code">var x = 10;
+var o = { x: 15 };
+
+function f(message) {
+    console.log(message);
+    console.log(this.x);
+}
+
+f("invoking f");
+f.call(o, "invoking f via call");
+f.apply(o, ["invoking f through apply"]);</code></pre>
+			<button onclick="javascript:executeScript('method_call_4_code');">Kód futtatása</button>
+		</section>
+
+		<section class="slide" id="scope">
+			<h2>Scope</h2>
+			<ul>
+				<li>A programozási nyelvekben meghatározza a láthatóságot és az élettartamot</li>
+				<li>Automatikus memória management</li>
+				<li>Megakadályozza a névütközéseket</li>
+				<li>Nem block scope van, hanem function scope</li>
+			</ul>
+			<pre><code>var foo = function() {
+	var a = 3, b = 5;
+	var bar = function() {
+		var b = 7, c = 11;// a is 3, b is 7, and c is 11
+
+		a += b + c; // a is 21, b is 7, and c is 11
+	};
+
+	// a is 3, b is 5, and c is not defined
+	bar();
+	// a is 21, b is 5
+};
+</code></pre>
+		</section>
+
+		<section class="slide" id="closure">
+			<h2>Closure</h2>
+			<pre><code>var myObject = function() {
+	var value = 0;
+	return {
+		increment: function (inc) {
+			value += typeof inc === 'number' ? inc : 1;
+		},
+		getValue: function ( ) {
+			return value;
+		}
+	}
+}();</code></pre>
+		</section>
+
+		<section class="slide" id="feladatok">
+			<h2>Feladatok</h2>
+			<ol>
+				<li>Készíts egy olyan prototípus függvényt, amely egy tömbben csak az egyedi elemeket hagyja benne!</li>
+				<li>Készíts egy olyan prototípus függvényt, amely egy stringnek az első betűjét naggyá változtatja, a többit kicsivé!</li>
+			</ol>
+		</section>
+
+		<!-- Begin extension snippets. Add or remove as needed. -->
+		<!-- deck.navigation snippet -->
+		<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+		<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+		<!-- deck.status snippet -->
+		<p class="deck-status">
+			<span class="deck-status-current"></span>
+			/
+			<span class="deck-status-total"></span>
+		</p>
+
+		<!-- deck.hash snippet -->
+		<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+		<!-- End extension snippets. -->
+
+		<!-- Required JS files. -->
+		<script src="jquery-1.7.2.min.js"></script>
+		<script src="core/deck.core.js"></script>
+
+		<!-- Extension JS files. Add or remove as needed. -->
+		<script src="extensions/hash/deck.hash.js"></script>
+		<script src="extensions/menu/deck.menu.js"></script>
+		<script src="extensions/status/deck.status.js"></script>
+		<script src="extensions/navigation/deck.navigation.js"></script>
+		<script src="extensions/scale/deck.scale.js"></script>
+
+		<!-- Initialize the deck. You can put this in an external file if desired. -->
+		<script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+	</body>
+</html>
